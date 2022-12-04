@@ -20,7 +20,7 @@ defmodule Dec2 do
     |> Enum.map(&Map.fetch!(@input_move_map, &1))
   end
 
-  defp parse_startegy_guide() do
+  defp parse_strategy_guide() do
     {:ok, raw_data} = File.read("input.txt")
 
     raw_data
@@ -29,14 +29,14 @@ defmodule Dec2 do
   end
 
   def part_1() do
-    parse_startegy_guide()
+    parse_strategy_guide()
     |> Enum.map(&map_to_moves/1)
     |> Enum.map(&score_round/1)
     |> Enum.sum()
   end
 
   def part_2() do
-    parse_startegy_guide()
+    parse_strategy_guide()
     |> Enum.map(&determine_play/1)
     |> Enum.map(&score_round/1)
     |> Enum.sum()
