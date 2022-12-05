@@ -1,28 +1,35 @@
 defmodule Dec3 do
 
-  def calc_priority(rucksack) do
-      {compartment_a, compartment_b} = 
+  defp calc_priority_single_rucksack(rucksack) do
       rucksack 
       |> String.split_at(div(String.length(rucksack), 2))
-      # worst hack ever!? But hey I'm using a MapSet
-      common_item = MapSet.intersection(MapSet.new(to_charlist(compartment_a)),
+      |> get_common_item
+      |> calc_priority
+  end
+
+  # worst hack ever!? But hey I'm using a MapSet
+  defp get_common_item( {compartment_a, compartment_b} ) do
+      MapSet.intersection(MapSet.new(to_charlist(compartment_a)),
                     MapSet.new(to_charlist(compartment_b)))
       |> MapSet.to_list
       |> List.first
+  end
 
-      if common_item > ?Z do
-        common_item - (?a - 1)
-        else
-        common_item - (?A - 27)
+  defp calc_priority(item) do
+      if item > ?Z do
+        item - (?a - 1)
+      else
+        item - (?A - 27)
       end
   end
 
   def part_1(rucksacks) do
     rucksacks
       |> String.split("\n", trim: true)
-      |> Enum.map(& calc_priority/1)
+      |> Enum.map(& calc_priority_single_rucksack/1)
       |> Enum.sum
   end
+
 end
 
 test_input = """
