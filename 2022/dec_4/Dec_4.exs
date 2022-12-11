@@ -38,14 +38,12 @@ defmodule Dec4 do
     assignments
     |> get_pairs_from_input
     |> Enum.count(&total_overloap?/1)
-    |> IO.inspect()
   end
 
   def part_2(assignments) do
     assignments
     |> get_pairs_from_input
     |> Enum.count(&any_overloap?/1)
-    |> IO.inspect()
   end
 end
 
